@@ -1,3 +1,5 @@
+/* Estutura do conteúdo de um nó. Decidimos criar essa classe para organizar melhor. */
+
 public class NoSimples {
     private Pedido conteudo;
     private NoSimples prox;

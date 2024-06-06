@@ -1,14 +1,28 @@
 import javax.swing.JOptionPane;
 
 public class ListaEncadeada {
+
+    /* Declaração dos ponteiros para os "nós simples", que são elementos (pedidos)
+     que apontam para o próximo, e do contador de nós da lista que estamos fazendo */
     private NoSimples primeiro, ultimo;
     private int numero_nos = 0;
-    private int tamanho;
 
     public ListaEncadeada() {
         primeiro = null;
         ultimo = null;
     }
+
+    public NoSimples getPrimeiro() {
+        return primeiro;
+    }
+
+    public boolean vazia() {
+        return primeiro == null;
+    }    
+
+    /* Método que, como o nome sugere, insere um nó no começo da lista. o Novo nó aponta
+     para o primeiro, e caso tanto o primeiro quanto o último forem vazios, o último nó 
+     também será igual ao novo nó. */
 
     public void insereNo_inicio(NoSimples novoNo) {
         novoNo.setProx(primeiro);
@@ -18,7 +32,9 @@ public class ListaEncadeada {
         primeiro = novoNo;
         numero_nos++;
     }
-
+    
+    /* Faz a mesma coisa, só que inserindo no fim. Faz a análise usando if, para caso
+    o primeiro nó ser vazio e caso o último não for vazio.*/
     public void insereNo_fim(NoSimples novoNo) {
         novoNo.setProx(null);
         if (primeiro == null)
@@ -28,6 +44,8 @@ public class ListaEncadeada {
         ultimo = novoNo;
         numero_nos++;
     }
+
+    /* Faz a busca do nó através do código do pedido. */
 
     public NoSimples buscarNo(int codigo) {
         NoSimples atual = primeiro;
@@ -40,33 +58,29 @@ public class ListaEncadeada {
         return null;
     }
 
-    public void remove(Object conteudo) {
+    public void removePorCodigo(int codigo) {
         NoSimples atual = primeiro;
         NoSimples anterior = null;
 
-        // Procurar o nó que contém o conteúdo a ser removido
-        while (atual != null && !atual.getConteudo().equals(conteudo)) {
+        while (atual != null && atual.getConteudo().getCodigo() != codigo) {
             anterior = atual;
             atual = atual.getProx();
         }
 
-        // Se o nó foi encontrado
         if (atual != null) {
-            // Se o nó a ser removido é o primeiro da lista
             if (anterior == null) {
                 primeiro = atual.getProx();
             } else {
                 anterior.setProx(atual.getProx());
             }
-            // Atualizar o último nó, se necessário
             if (atual == ultimo) {
                 ultimo = anterior;
             }
-            tamanho--; // Atualizar o tamanho da lista
+            numero_nos--;
         }
     }
 
-    public void ExibeLista() {
+    public void exibeLista() {
         NoSimples temp_no = primeiro;
         int i = 1;
         StringBuilder stringBuilder = new StringBuilder();

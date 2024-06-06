@@ -45,21 +45,42 @@ public class Fila {
         return elem;
     }
 
-    public boolean contem(Object conteudo) {
-        for (int i = inicio; i < fim; i++) {
-            if (vetor[i].equals(conteudo)) {
+    public void removePorCodigo(int codigo) {
+        if (!vazia()) {
+            int count = total;
+            for (int i = inicio; count > 0; i = (i + 1) % tamanho, count--) {
+                if (vetor[i].getCodigo() == codigo) {
+                    for (int j = i; j != fim; j = (j + 1) % tamanho) {
+                        vetor[j] = vetor[(j + 1) % tamanho];
+                    }
+                    fim = (fim - 1 + tamanho) % tamanho;
+                    total--;
+                    break;
+                }
+            }
+        }
+    }
+
+    public void exibeFila() {
+        StringBuilder mensagem = new StringBuilder("Pedidos na fila para preparo:\n");
+        for (int i = inicio, count = 0; count < total; i = (i + 1) % tamanho, count++) {
+            Pedido pedido = vetor[i];
+            mensagem.append("Pedido ").append(pedido.getCodigo()).append("\n");
+            mensagem.append("   Sabor: ").append(pedido.getSabor()).append("\n");
+            mensagem.append("   Tamanho: ").append(pedido.getTamanho()).append("\n");
+            mensagem.append("   Endereço: ").append(pedido.getEndereco()).append("\n");
+            mensagem.append("   Distância: ").append(pedido.getDistancia()).append("\n\n");
+        }
+        JOptionPane.showMessageDialog(null, mensagem.toString());
+    }
+
+    public boolean contemPedido(int codigo) {
+        for (int i = inicio, count = 0; count < total; i = (i + 1) % tamanho, count++) {
+            if (vetor[i].getCodigo() == codigo) {
                 return true;
             }
         }
         return false;
-    }
-
-    public void ExibeFila() {
-        StringBuilder mensagem = new StringBuilder("Pedidos na fila para preparo:\n");
-        for (int i = inicio, count = 0; count < total; i = (i + 1) % tamanho, count++) {
-            mensagem.append("Pedido ").append(count + 1).append(": ").append(vetor[i]).append("\n");
-        }
-        JOptionPane.showMessageDialog(null, mensagem.toString());
     }
     
 }

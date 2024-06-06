@@ -6,7 +6,7 @@ public class Pilha {
     private Pedido[] vetor;
 
     public Pilha(int tam) {
-        topo = -1; // Marca que a pilha está vazia
+        topo = -1; 
         tamanho = tam;
         vetor = new Pedido[tam];
     }
@@ -39,9 +39,9 @@ public class Pilha {
         return valorDesempilhado;
     }
 
-    public String ExibePilha() {
+    public String exibePilha() {
         StringBuilder elementos = new StringBuilder();
-        elementos.append("Pedidos para Entrega (do mais distante ao mais próximo):\n");
+        elementos.append("Pedidos para Entrega (do mais próximo ao mais distante):\n");
         if (vazia()) {
             elementos.append("Não há nenhum pedido na pilha para entrega!");
         } else {
@@ -56,5 +56,6 @@ public class Pilha {
         }
         return elementos.toString();
     }
+
     
 }
